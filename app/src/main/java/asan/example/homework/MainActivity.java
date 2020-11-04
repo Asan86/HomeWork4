@@ -1,5 +1,6 @@
 package asan.example.homework;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,9 +39,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 list.add(new TitleMode(mEditText.getText().toString(), ""));
+                adapter.notifyDataSetChanged();
             }
         });
+    }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("KAY", mEditText.getText().toString());
+    }
 
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mEditText.setText(savedInstanceState.getString("KAY"));
     }
 }
